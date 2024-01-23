@@ -33,5 +33,11 @@ namespace PojectMastery.Controllers
         public IActionResult GetAllProducts() {
             return PartialView("~/Views/Shared/Partials/_ProductList.cshtml");
         }
+
+        [HttpPost]
+        public IActionResult DeleteProduct(int Id) {
+            Console.WriteLine(Id);
+            return StatusCode(200);
+        }
     }
 }
