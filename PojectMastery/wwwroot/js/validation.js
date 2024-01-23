@@ -1,8 +1,8 @@
 ﻿function validateProductForm() {
-    $("#add-form").validate({
+    $("#product-form").validate({
         rules: {
             name: "required",
-            brand: "required",
+            category: "required",
             sku: "required",
             color: "required",
             size: {
@@ -25,7 +25,7 @@
         },
         messages: {
             name: "This field is required",
-            brand: "This field is required",
+            category: "This field is required",
             sku: "This field is required",
             color: "This field is required",
             size: {
