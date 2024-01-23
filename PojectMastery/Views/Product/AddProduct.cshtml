@@ -1,0 +1,154 @@
+﻿@using PojectMastery.Data;
+@model Product
+<section id="add-product" style="max-width: 400px">
+    <div class="section-title">
+        <h4>ADD NEW PRODUCT</h4>
+    </div>
+    <div class="section-content">
+        <form id="add-form">
+            <div class="form-group mb-2">
+                <div class="form-item">
+                    <label>Product Name</label>
+                </div>
+                <div class="form-item">
+                    <input class="form-control" asp-for="name"/>
+                </div>
+            </div>
+            <div class="form-group mb-2">
+                <div class="form-item">
+                    <label>Brand</label>
+                </div>
+                <div class="form-item">
+                    <input class="form-control" asp-for="brand" />
+                </div>
+            </div>
+            <div class="form-group mb-2">
+                <div class="form-item">
+                    <label>Unit Price</label>
+                </div>
+                <div class="form-item">
+                    <input class="form-control" asp-for="price" />
+                </div>
+            </div>
+            <div class="form-group mb-2">
+                <div class="form-item">
+                    <label>SKU Code</label>
+                </div>
+                <div class="form-item">
+                    <input class="form-control" asp-for="sku" />
+                </div>
+            </div>
+            <div class="form-block row">
+               <div class="form-group col-sm-4 mb-2">
+                   <div class="form-item">
+                       <label>Color</label>
+                   </div>
+                    <div class="form-item" >
+                        <input class="form-control" asp-for="color" />
+                    </div>
+               </div>
+                <div class="form-group col-sm-4 mb-2">
+                    <div class="form-item">
+                        <label>Size</label>
+                    </div>
+                    <div class="form-item">
+                       <select class="form-select" asp-for="size" asp-items="@Html.GetEnumSelectList<SizeCategory>()">
+                           <option value="" selected disabled>Choose</option>
+                       </select>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4 mb-2">
+                    <div class="form-item">
+                        <label>Weight</label>
+                    </div>
+                    <div class="form-item">
+                        <input type="number" class="form-control" asp-for="weight" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-item">
+                    <label>Description</label>
+                </div>
+                <div class="form-item">
+                    <textarea class="form-control" asp-for="description">
+
+                    </textarea>
+                </div>
+            </div>
+            <div class="form-group mb-2">
+                <div class="form-item">
+                    <label>Product Photo</label>
+                </div>
+                <div class="form-item">
+                    <input class="form-control" asp-for="productPhoto"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-sm btn-primary w-100">ADD PRODUCT</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<script>
+    $("#add-form").submit((e) => {
+        e.preventDefault()
+
+        validateProductForm();
+
+        if ($("#add-form").valid()) {
+            var formData = new FormData();
+
+            formData.append("name", $("#name").val());
+            formData.append("brand", $("#brand").val());
+            formData.append("price", $("#price").val());
+            formData.append("sku", $("#sku").val());
+            formData.append("color", $("#color").val());
+            formData.append("size", $("#size").val());
+            formData.append("weight", $("#weight").val());
+            formData.append("description", $("#description").val());
+
+            var photoInput = $("#productPhoto")[0];
+            var photoFile = photoInput.files[0];
+
+            formData.append("productPhoto", photoFile);
+
+            $.ajax({
+                type: "POST",
+                data: formData,
+                url: "@Url.Action("AddProduct", "Product")",
+                processData: false,
+                dataType: false,
+                contentType: false,
+                enctype: "multipart/form-data",
+                success: () => { 
+                    Swal.fire({
+                        title: "Success!",
+                        text: "Product has been added",
+                        icon: "success",
+                        allowOutsideClick: false,
+                        showCancelButton: false
+                    }).then((result)=>{
+                        if (result.isConfirmed) { 
+                            window.location.herf = "@Url.Action("Index", "Home")"
+                        }
+                    });
+                },
+                error: () => {
+                    Swal.fire({
+                        title: "Failed",
+                        text: "Something went wrong",
+                        icon: "failed",
+                        allowOutsideClick: false,
+                        showCancelButton: false
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.herf = "@Url.Action("Index", "Home")"
+                        }
+                    });
+                }
+            });
+        }
+    })
+</script>
