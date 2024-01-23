@@ -9,7 +9,7 @@
         public string sku { get; set; }
         public string size { get; set; }
         public string color { get; set; }
-        public string brand { get; set; }
+        public int categoryId { get; set; }
         public IFormFile productPhoto { get; set; }
         public decimal weight { get; set; }
         public decimal price { get; set; }
