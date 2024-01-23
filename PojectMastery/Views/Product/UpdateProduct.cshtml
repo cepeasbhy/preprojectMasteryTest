@@ -84,7 +84,11 @@
                 </div>
             </div>
             <div class="form-group">
-                <button class="btn btn-sm btn-primary w-100">ADD PRODUCT</button>
+                <button class="btn btn-sm btn-primary w-100" id="btn-active">UPDATE PRODUCT</button>
+                <button class="btn btn-primary btn-sm" id="btn-progress" type="button" style="display:none" disabled>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    <span class="sr-only">Submitting...</span>
+                </button>
             </div>
         </form>
     </div>
@@ -97,6 +101,10 @@
         validateProductForm();
 
         if ($("#update-form").valid()) {
+
+             $("#btn-active").hide();
+             $("#btn-progress").show();
+
             var formData = new FormData();
 
             formData.append("name", $("#name").val());
@@ -122,6 +130,10 @@
                 contentType: false,
                 enctype: "multipart/form-data",
                 success: () => {
+
+                    $("#btn-progress").hide();
+                    $("#btn-active").show();
+
                     Swal.fire({
                         title: "Success!",
                         text: "Product has been updated",
@@ -135,6 +147,10 @@
                     });
                 },
                 error: () => {
+
+                    $("#btn-progress").hide();
+                    $("#btn-active").show();
+
                     Swal.fire({
                         title: "Failed",
                         text: "Something went wrong",
