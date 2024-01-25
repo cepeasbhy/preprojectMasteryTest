@@ -142,14 +142,13 @@
                     $("#btn-active").show();
                     
                     Swal.fire({
-                        title: "Success!",
-                        text: "Product has been added",
+                        title: "Product has been added",
                         icon: "success",
-                        allowOutsideClick: false,
-                        showCancelButton: false
-                    }).then((result)=>{
-                        if (result.isConfirmed) { 
-                            window.location.herf = "@Url.Action("Index", "Home")"
+                        showCancelButton: false,
+                        allowOutsideClick: false
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "@Url.Action("Index", "Home")"
                         }
                     });
                 },
