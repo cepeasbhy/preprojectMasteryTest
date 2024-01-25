@@ -2,7 +2,14 @@
 {
     public class Category
     {
-        public int Id { get; set; }
+        public int id { get; set; }
         public string name { get; set; }
+
+        public Category() {}
+        public Category(int id, string name)
+        {
+            this.id = id;
+            this.name = name;
+        }
     }
 }

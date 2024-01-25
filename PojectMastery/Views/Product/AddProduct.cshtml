@@ -1,5 +1,5 @@
 ﻿@using PojectMastery.Data;
-@model Product
+@model PojectMastery.Views.Shared.Inputs.ProductInput
 <section id="add-product" style="max-width: 400px">
     <div class="section-title">
         <h4>ADD NEW PRODUCT</h4>
@@ -19,8 +19,9 @@
                     <label>Category</label>
                 </div>
                 <div class="form-item">
-                    <select class="form-select" asp-for="category">
+                    <select class="form-select" asp-for="categoryId">
                         <option value="" selected disabled>Choose</option>
+                        <option value="1">Category 1</option>
                     </select>
                 </div>
             </div>
@@ -110,7 +111,7 @@
             var formData = new FormData();
 
             formData.append("name", $("#name").val());
-            formData.append("category", $("#category").val());
+            formData.append("categoryId", $("#categoryId").val());
             formData.append("price", $("#price").val());
             formData.append("sku", $("#sku").val());
             formData.append("color", $("#color").val());

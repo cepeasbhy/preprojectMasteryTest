@@ -1,5 +1,5 @@
 ﻿@using PojectMastery.Data;
-@model Product
+@model PojectMastery.Views.Shared.Inputs.ProductInput
 <section id="add-product" style="max-width: 400px">
     <div class="section-title">
         <h4>UPDATE PRODUCT INFORMATION</h4>
@@ -19,7 +19,7 @@
                     <label>Category</label>
                 </div>
                 <div class="form-item">
-                    <select class="form-select" asp-for="category">
+                    <select class="form-select" asp-for="categoryId">
                         <option value="" selected disabled>Choose</option>
                     </select>
                 </div>
