@@ -9,18 +9,24 @@ namespace PojectMastery.Controllers
     {
         private readonly IProductRepository _productRepository;
         private readonly IFileUpload _fileUpload;
+        private readonly ICategoryRepository _categoryRepository;
 
-        public ProductController(IProductRepository productRepository, IFileUpload fileUpload)
+        public ProductController(IProductRepository productRepository, IFileUpload fileUpload, ICategoryRepository categoryRepository)
         {
             _productRepository = productRepository;
             _fileUpload = fileUpload;
+            _categoryRepository = categoryRepository;
         }
 
         public IActionResult Details(int id)
         {
             return View();
         }
-        public IActionResult AddProduct() {
+        
+        public async Task<IActionResult> AddProduct()
+        {
+            var categories = await _categoryRepository.GetAllCategories();
+            ViewBag.Categories = categories;
             return View();
         }
 

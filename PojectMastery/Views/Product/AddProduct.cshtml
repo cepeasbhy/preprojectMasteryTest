@@ -1,5 +1,6 @@
 ﻿@using PojectMastery.Data;
 @model PojectMastery.Views.Shared.Inputs.ProductInput
+
 <section id="add-product" style="max-width: 400px">
     <div class="section-title">
         <h4>ADD NEW PRODUCT</h4>
@@ -21,7 +22,10 @@
                 <div class="form-item">
                     <select class="form-select" asp-for="categoryId">
                         <option value="" selected disabled>Choose</option>
-                        <option value="1">Category 1</option>
+                        @foreach (Category category in ViewBag.Categories)
+                        {
+                            <option value="@category.id" >@category.name</option>
+                        }
                     </select>
                 </div>
             </div>

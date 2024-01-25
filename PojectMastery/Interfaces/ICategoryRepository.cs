@@ -4,6 +4,6 @@ namespace PojectMastery.Interfaces;
 
 public interface ICategoryRepository
 {
-    public Task<IEnumerable<Category>> GetAllCategory();
+    public Task<IEnumerable<Category>> GetAllCategories();
     public Task<Category?> GetCategoryById<T>(T id);
 }

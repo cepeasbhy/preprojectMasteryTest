@@ -14,7 +14,7 @@ public class CategoryRepository : ICategoryRepository
         _connection = connection;
     }
     
-    public async Task<IEnumerable<Category>> GetAllCategory()
+    public async Task<IEnumerable<Category>> GetAllCategories()
     {
         return await _connection.QueryAsync<Category>("sp_get_categories");
     }
