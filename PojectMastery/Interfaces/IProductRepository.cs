@@ -10,5 +10,5 @@ public interface IProductRepository
     public Task<int> GetTotalSearchResult(string searchText);
     public Task<Product?> GetProductById<T>(T id);
     public Task<int> AddProduct(Product product);
-    
+    public Task<int> UpdateProduct<T>(T id, Product product);
 }

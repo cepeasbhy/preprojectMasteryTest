@@ -8,6 +8,19 @@
         </tr>
     </thead>
     <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.sku</td>
+                <td>@product.name</td>
+                <td>@product.categoryId</td>
+                <td class="row" style="gap: 5px">
+                    <a asp-controller="Product" asp-action="Details" asp-route-id="@product.id" class="btn btn-sm btn-success col-3">VIEW</a>
+                    <a asp-controller="Product" asp-action="UpdateProduct" asp-route-id="@product.id" class="btn btn-sm btn-primary col-3">UPDATE</a>
+                    <button class="btn btn-sm btn-danger col-3" onclick="handleDelete(1)">DELETE</button>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 

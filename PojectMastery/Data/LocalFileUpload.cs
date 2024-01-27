@@ -18,6 +18,6 @@ public class LocalFileUpload : IFileUpload
         using var stream = new FileStream(fileNameWithOutputPath, FileMode.Create);
         formFile.CopyTo(stream);
 
-        return fileNameWithOutputPath;
+        return fileName;
     }
 }
