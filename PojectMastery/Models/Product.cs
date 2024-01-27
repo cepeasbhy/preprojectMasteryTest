@@ -7,7 +7,7 @@
         public string name { get; set; }
         public string description { get; set; }
         
-        public string urlPhoto { get; set; }
+        public string? urlPhoto { get; set; }
         public string sku { get; set; }
         public string size { get; set; }
         public string color { get; set; }

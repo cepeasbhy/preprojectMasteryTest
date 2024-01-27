@@ -1,5 +1,6 @@
 ﻿@using PojectMastery.Data;
 @model PojectMastery.Views.Shared.Inputs.ProductInput
+
 <section id="add-product" style="max-width: 400px">
     <div class="section-title">
         <h4>UPDATE PRODUCT INFORMATION</h4>
@@ -20,7 +21,11 @@
                 </div>
                 <div class="form-item">
                     <select class="form-select" asp-for="categoryId">
-                        <option value="" selected disabled>Choose</option>
+                        <option value="" disabled>Choose</option>
+                        @foreach (Category category in ViewBag.Categories)
+                        {
+                            <option value="@category.id" >@category.name</option>
+                        }
                     </select>
                 </div>
             </div>
@@ -55,7 +60,11 @@
                     </div>
                     <div class="form-item">
                         <select class="form-select" asp-for="size" asp-items="@Html.GetEnumSelectList<SizeCategory>()">
-                            <option value="" selected disabled>Choose</option>
+                            <option value=""  disabled>Choose</option>
+                            @* @foreach (var item in ) *@
+                            @* { *@
+                            @*     <option value="@item.Value">@item.Text</option> *@
+                            @* } *@
                         </select>
                     </div>
                 </div>
@@ -83,7 +92,7 @@
                     <label>Product Photo</label>
                 </div>
                 <div class="form-item">
-                    <input class="form-control" asp-for="productPhoto" />
+                    <input class="form-control"  asp-for="productPhoto"/>
                 </div>
             </div>
             <div class="form-group">
@@ -98,6 +107,10 @@
 </section>
 
 <script>
+    $(() => {
+        alert(window.location.href);
+        
+    })
     $("#product-form").submit((e) => {
         e.preventDefault()
 
@@ -111,7 +124,7 @@
             var formData = new FormData();
 
             formData.append("name", $("#name").val());
-            formData.append("category", $("#category").val());
+            formData.append("categoryId", $("#categoryId").val());
             formData.append("price", $("#price").val());
             formData.append("sku", $("#sku").val());
             formData.append("color", $("#color").val());
@@ -127,7 +140,7 @@
             $.ajax({
                 type: "POST",
                 data: formData,
-                url: "@Url.Action("AddProduct", "Product")",
+                url: "@Url.Action("UpdateProduct", "Product")",
                 processData: false,
                 dataType: false,
                 contentType: false,

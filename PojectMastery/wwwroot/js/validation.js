@@ -36,10 +36,6 @@
                 required: "This field is required",
                 number: "Please enter a valid number"
             },
-            weight: {
-                required: "This field is required",
-                number: "Please enter a valid number"
-            },
             description: "Provide a description for your product",
             productPhoto: {
                 required: "Upload a photo for your product",

@@ -47,4 +47,25 @@ public class ProductRepository : IProductRepository
             commandType: CommandType.StoredProcedure
         ); 
     }
+
+    public async Task<int> UpdateProduct<T>(T id, Product product)
+    {
+        return await _connection.ExecuteAsync(
+            "sp_save_product", 
+            new
+            {
+                id,
+                product.name,
+                product.description,
+                product.urlPhoto,
+                product.sku,
+                product.size,
+                product.color,
+                product.categoryId,
+                product.weight,
+                product.price
+            },
+            commandType: CommandType.StoredProcedure
+        );
+    }
 }

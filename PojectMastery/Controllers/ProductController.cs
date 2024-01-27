@@ -18,9 +18,10 @@ namespace PojectMastery.Controllers
             _categoryRepository = categoryRepository;
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            return View();
+            var product = await _productRepository.GetProductById(id);
+            return View(product);
         }
         
         public async Task<IActionResult> AddProduct()
@@ -34,29 +35,34 @@ namespace PojectMastery.Controllers
         public async Task<IActionResult> AddProduct(ProductInput productInput)
         {
             var urlPhoto = _fileUpload.Save(productInput.productPhoto);
-            var product = new Product(
-                    productInput.name,
-                    productInput.description,
-                    urlPhoto,
-                    productInput.sku,
-                    productInput.size,
-                    productInput.color,
-                    categoryId: int.Parse(productInput.categoryId),
-                    productInput.weight,
-                    productInput.price
-                );
+            
+            var product = productInput.ToProduct();
+            product.urlPhoto = urlPhoto;
             
             var res = await _productRepository.AddProduct(product);
             return res != 0 ? StatusCode(200) : BadRequest();
         }
 
-        public IActionResult UpdateProduct(int id) {
-            return View();
+        public async Task<IActionResult> UpdateProduct(int id)
+        {
+            var categories = await _categoryRepository.GetAllCategories();
+            ViewBag.Categories = categories;
+            
+            var product = await _productRepository.GetProductById(id);
+            return View(new ProductInput(product));
         }
 
         [HttpPost]
-        public IActionResult UpdateProduct(Product product)
+        public async Task<IActionResult> UpdateProduct(int id, ProductInput productInput)
         {
+            var product = productInput.ToProduct();
+            if (productInput.productPhoto != null)
+            {
+                var urlPhoto = _fileUpload.Save(productInput.productPhoto);
+                product.urlPhoto = urlPhoto;
+            }
+
+            await _productRepository.UpdateProduct(id, product);
             return StatusCode(200);
         }
 
