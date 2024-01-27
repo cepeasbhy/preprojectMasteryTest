@@ -6,8 +6,17 @@
         public int id { get; set; }
         public string name { get; set; }
         public string description { get; set; }
+<<<<<<< Updated upstream
 
         public string? urlPhoto { get; set; }
+=======
+<<<<<<< HEAD
+        public string urlPhoto { get; set; }
+=======
+        
+        public string? urlPhoto { get; set; }
+>>>>>>> 5d3f44c8fe01715afd02542ae52684c20b6d26fa
+>>>>>>> Stashed changes
         public string sku { get; set; }
         public string size { get; set; }
         public string color { get; set; }
