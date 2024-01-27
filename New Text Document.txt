@@ -1,0 +1,38 @@
+ for (int i = 1; i < daysOnly.Length; i++)
+ {
+     int previousDay = Convert.ToInt32(daysOnly[i - 1]);
+     int nextDay = Convert.ToInt32(daysOnly[(i - 1) + 1]);
+
+     if (successionCounter == 0)
+     {
+         result += monthAndDay[i - 1];
+     }
+
+
+     if ((nextDay - previousDay) == 1)
+     {
+         successionCounter++;
+     }
+     else
+     {
+         if (i > 1)
+         {
+             result += "-" + monthAndDay[i - 1] + ",";
+         }
+         else { 
+             result += ",";
+         }
+         successionCounter = 0;
+     }
+
+     if (daysOnly.Length - 1 == i)
+     {
+         if (successionCounter == 0)
+         {
+             result += monthAndDay[daysOnly.Length - 1];
+         }
+         else {
+             result += "-"+monthAndDay[daysOnly.Length - 1];
+         }
+     }
+ }

@@ -1,27 +1,44 @@
-﻿@model IEnumerable<Product>
-
-<table class="table">
+﻿<table class="table w-100" id="product-table">
     <thead>
         <tr>
             <th>SKU</th>
             <th>PRODUCT NAME</th>
-            <th>BRAND</th>
+            <th>CATEGORY</th>
             <th>ACTION</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var product in Model)
-        {
-            <tr>
-                <td>@product.sku</td>
-                <td>@product.name</td>
-                <td>@product.categoryId</td>
-                <td class="row" style="gap: 5px">
-                    <a asp-controller="Product" asp-action="Details" asp-route-id="1" class="btn btn-sm btn-success col-3">VIEW</a>
-                    <a asp-controller="Product" asp-action="UpdateProduct" asp-route-id="1" class="btn btn-sm btn-primary col-3">UPDATE</a>
-                    <button class="btn btn-sm btn-danger col-3" onclick="handleDelete(1)">DELETE</button>
-                </td>
-            </tr>
-        }
     </tbody>
 </table>
+
+<script>
+    var table = $('#product-table').DataTable({
+        serverSide: true,
+        processing: true,
+        ajax: {
+            url: "@Url.Action("GetPaginatedProductList", "Product")",
+            type: "POST",
+            dataType: "json",
+            data: (d) => {
+                d.currentPage = d.start / d.length + 1;
+                d.pageSize = d.length;
+                d.searchValue = $("#product-table_filter input").val();
+            },
+        },
+        columns: [
+            { data: "sku" },
+            { data: "name" },
+            {data: "category"},
+            {
+                data: null,
+                render: (data, type, row)=>{
+                    var viewBtn = `<a href="Product/Details/${data.id}" class="btn btn-sm btn-success col-3">VIEW</a> `;
+                    var updateBtn = `<a href="Product/UpdateProduct/${data.id}" class="btn btn-sm btn-primary col-3">UPDATE</a> `;
+                    var deleteBtn = `<button class="btn btn-sm btn-danger col-3" onclick="handleDelete(${data.id})">DELETE</button> `;
+                    
+                    return viewBtn + updateBtn + deleteBtn;
+                }
+            }
+        ],
+    });
+</script>

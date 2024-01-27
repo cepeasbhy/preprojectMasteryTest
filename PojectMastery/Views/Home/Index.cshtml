@@ -11,7 +11,7 @@
                 <img src="img/icons/bar-chart-2.svg" />
             </div>
             <div class="summary-card-content ms-3">
-                <h5>240</h5>
+                <h5>@ViewBag.totalProducts</h5>
                 <span class="text-black-50" style="font-size: 13px">TOTAL ITEMS</span>
             </div>
         </div>
@@ -20,8 +20,8 @@
                 <img src="img/icons/bar-chart-2.svg" />
             </div>
             <div class="summary-card-content ms-3">
-                <h5>10</h5>
-                <span class="text-black-50" style="font-size: 13px">TOTAL BRANDS</span>
+                <h5>@ViewBag.totalCategories</h5>
+                <span class="text-black-50" style="font-size: 13px">TOTAL CATEGORIES</span>
             </div>
         </div>
     </div>
@@ -34,16 +34,5 @@
             ADD PRODUCT
         </a>
     </div>
-    <div class="section-content partial" data-url="@Url.Action("GetAllProducts", "Product")">
-        <div class="spinner-wrapper container">
-            <div class="spinner"></div>
-            <div>
-                <p>Fetching Data...</p>
-            </div>
-        </div>
-    </div>
+    @Html.Partial("~/Views/Shared/Partials/_ProductList.cshtml")
 </section>
-
-<script>
-    loadPartialView()
-</script>

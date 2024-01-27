@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Client;
 using PojectMastery.Interfaces;
 using PojectMastery.Models;
 using PojectMastery.Views.Shared.Inputs;
@@ -60,10 +61,14 @@ namespace PojectMastery.Controllers
             return StatusCode(200);
         }
 
-        public async Task<IActionResult> GetAllProducts()
+        [HttpPost]
+        public async Task<IActionResult> GetPaginatedProductList(Pagination pagination)
         {
-            var products = await _productRepository.GetAllProducts();
-            return PartialView("~/Views/Shared/Partials/_ProductList.cshtml", products);
+            var data = await _productRepository.GetPaginatedResult(pagination);
+            var recordsFiltered = await _productRepository.GetTotalSearchResult(pagination.searchValue);
+            var recordsTotal = await _productRepository.GetTotalSearchResult(pagination.searchValue);
+
+            return Json(new { data, recordsTotal, recordsFiltered });
         }
 
         [HttpPost]

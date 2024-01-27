@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using Dapper;
+using Microsoft.Identity.Client;
 using PojectMastery.Interfaces;
 using PojectMastery.Models;
 
@@ -14,9 +15,29 @@ public class ProductRepository : IProductRepository
         _connection = connection;
     }
 
-    public async Task<IEnumerable<Product>> GetAllProducts()
-    {
-        return await _connection.QueryAsync<Product>("sp_get_products");
+    public async Task<IEnumerable<Product>> GetPaginatedResult(Pagination pagination)
+    { 
+        return await _connection.QueryAsync<Product>(
+            "sp_get_paginated_result", 
+            new { 
+                pagination.offset, 
+                search = pagination.searchValue, 
+                next = pagination.pageSize
+            });
+    }
+
+    public async Task<int> GetTotalProducts() {
+        return await _connection.QuerySingleAsync<int>("sp_get_total_products");
+    }
+
+    public async Task<int> GetTotalCategories() {
+        return await _connection.QuerySingleAsync<int>("sp_get_total_category");
+    }
+
+    public async Task<int> GetTotalSearchResult(string searchText) {
+        return await _connection.QuerySingleAsync<int>(
+            "sp_get_total_search_results", 
+            new { search = searchText });
     }
 
     public async Task<Product?> GetProductById<T>(T id)
