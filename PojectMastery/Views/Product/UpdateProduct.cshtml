@@ -140,7 +140,7 @@
             $.ajax({
                 type: "POST",
                 data: formData,
-                url: "@Url.Action("UpdateProduct", "Product")",
+                url: "@Url.Action("UpdateProduct", "Product", new {  })",
                 processData: false,
                 dataType: false,
                 contentType: false,

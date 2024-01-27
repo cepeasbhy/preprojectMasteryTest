@@ -89,4 +89,13 @@ public class ProductRepository : IProductRepository
             commandType: CommandType.StoredProcedure
         );
     }
+
+    public async Task<int> DeleteProduct<T>(T id)
+    {
+        return await _connection.ExecuteAsync(
+            "sp_delete_product", 
+            new { Id = id },
+            commandType: CommandType.StoredProcedure
+        ); 
+    }
 }

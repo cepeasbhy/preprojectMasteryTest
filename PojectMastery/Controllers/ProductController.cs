@@ -78,7 +78,11 @@ namespace PojectMastery.Controllers
         }
 
         [HttpPost]
-        public IActionResult DeleteProduct(int Id) {
+        public async Task<IActionResult> DeleteProduct(int Id) {
+            var product = await _productRepository.GetProductById(Id);
+            if (product == null) return BadRequest();
+            
+            await _productRepository.DeleteProduct(Id);
             return StatusCode(200);
         }
     }
